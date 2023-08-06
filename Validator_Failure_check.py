@@ -93,21 +93,20 @@ for validator, node in validators.items():
         if validator == "Eve":
             if challenge_type == "mathematical":
                 response = str(int(response) + 1)  # adding 1 to the result
+            elif challenge_type == "string_manipulation":
+                response += "x"  # add an extra letter at the end
             elif challenge_type == "hash":
                 response += "x"
             elif challenge_type == "time":
                 response = str(int(response) + 1000)  # adding an offset to the time
             elif challenge_type == "cryptographic_signature":
                 response = response[:-1] + 'x'  # modify the last character of the signature
-            elif challenge_type == "string_manipulation":
-                response += "x"  # add an extra letter at the end
-        
+            
         # Record the outcome of the challenge
         node.voting_data.append(1 if str(response) == str(expected_response) else 0)
         
-        print(f"{validator} - Challenge: {challenge_type}, Response: {response}, Expected: {expected_response}")
         print(node.voting_data)
-
+        print(f"{validator} - Challenge: {challenge_type}, Response: {response}, Expected: {expected_response}")
 
 # Detect and print potentially compromised validators
 compromised_validators = detect_compromised({validator: node.voting_data for validator, node in validators.items()})

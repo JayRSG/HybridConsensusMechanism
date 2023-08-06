@@ -1,1 +1,1 @@
-# HybridConsensusMechanism
+# Hybrid Consensus Mechanism
